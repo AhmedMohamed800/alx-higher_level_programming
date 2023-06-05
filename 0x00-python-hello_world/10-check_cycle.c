@@ -7,12 +7,10 @@
 */
 int check_cycle(listint_t *list)
 {
-	listint_t *current = list;
 	int max_int = 0;
 
 	while (list != NULL)
 	{
-		current = list;
 		list = list->next;
 		max_int++;
 		if (max_int == 1000)
