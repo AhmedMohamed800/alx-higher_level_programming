@@ -5,4 +5,4 @@ def uppercase(str):
             upper = chr(ord(char) - 32)
             print("{}".format(upper), end="")
         else:
-            print("{}".format(char), end="")
+            print("{}".format(char), end="" if str[-1] != char else "\n")
