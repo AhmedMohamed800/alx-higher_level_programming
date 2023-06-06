@@ -2,10 +2,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/**
+* insert_node - insert a node
+* @head: the nodes heads
+* @number: number to be inserted
+* Return: node
+*/
 listint_t *insert_node(listint_t **head, int number)
 {
 	listint_t *new, *current = *head;
-	
+
 	new = malloc(sizeof(listint_t));
 	if (new == NULL)
 		return (NULL);
@@ -18,16 +24,20 @@ listint_t *insert_node(listint_t **head, int number)
 	}
 	while (current != NULL)
 	{
-		if (number == current->n ||
-				(number > current->n && number < current->next->n))
+		if (current->next == NULL)
 		{
 			current->next = new;
+			new->next = NULL;
+			break;
+		}
+		else if (number <= current->next->n)
+		{
 			new->next = current->next;
-			return (new);
+			current->next = new;
+			break;
 		}
 		current = current->next;
 	}
-	current->next = new;
-	new->next = NULL;
 	return (new);
 }
+
