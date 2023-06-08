@@ -14,6 +14,6 @@ elif arg_len == 2:
     message += ":"
 elif arg_len > 2:
     message += "s:"
-print("{:d} {:s}".format(arg_len - 1 ,message))
+print("{:d} {:s}".format(arg_len - 1, message))
 for num in range(1, arg_len):
     print("{:d}: {:s}".format(num, arguments[num]))
