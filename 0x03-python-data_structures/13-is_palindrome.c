@@ -14,7 +14,7 @@ int is_palindrome(listint_t **head)
 	int *numys, i = 0, j = 0;
 
 	if (current == NULL || current->next == NULL)
-		return 1;
+		return (1);
 	while (current->next != NULL)
 	{
 		current = current->next;
@@ -27,9 +27,10 @@ int is_palindrome(listint_t **head)
 		for (i = 0; i < size_of_list / 2; i++)
 		{
 			if (numys[i] != numys[j])
-				return 0;
+				return (0);
 		}
-		return 1;
+		free(numys);
+		return (1);
 	}
-	return 0;
+	return (0);
 }
