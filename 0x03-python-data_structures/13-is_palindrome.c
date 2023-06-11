@@ -13,7 +13,7 @@ int is_palindrome(listint_t **head)
 	int size_of_list = 1;
 	int *numys, i = 0, j = 0, t = 0;
 
-	if (current == NULL || current->next == NULL)
+	if (current == NULL)
 		return (1);
 	while (current->next != NULL)
 	{
