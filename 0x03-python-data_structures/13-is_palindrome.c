@@ -20,24 +20,20 @@ int is_palindrome(listint_t **head)
 		current = current->next;
 		size_of_list++;
 	}
-	if (size_of_list % 2 == 0)
+	numys = malloc(size_of_list * sizeof(int));
+	while (second != NULL)
 	{
-		numys = malloc(size_of_list * sizeof(int));
-		while (second != NULL)
-		{
-			numys[t] = second->n;
-			second = second->next;
-			t++;
-		}
-		j = size_of_list - 1;
-		for (i = 0; i < size_of_list / 2; i++)
-		{
-			if (numys[i] != numys[j])
-				return (0);
-			j--;
-		}
-		free(numys);
-		return (1);
+		numys[t] = second->n;
+		second = second->next;
+		t++;
 	}
-	return (0);
+	j = size_of_list - 1;
+	for (i = 0; i < size_of_list / 2; i++)
+	{
+		if (numys[i] != numys[j])
+			return (0);
+		j--;
+	}
+	free(numys);
+	return (1);
 }
