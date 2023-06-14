@@ -22,7 +22,7 @@ def roman_to_int(roman_string):
         else:
             next_e = current
         if nummies[current] > nummies[prev]:
-            nummy += nummies[current] - 1
+            nummy += nummies[current] - nummies[prev]
             continue
         if nummies[current] > nummies[next_e]:
             nummy += nummies[current]
