@@ -1,0 +1,86 @@
+The module to test ``0-add_integer``
+=================================
+
+Using ``add_integer``
+---------------------
+
+This file is considerd in reStructuredText format.
+First import ``add_integer`` from the ``0-add_integer`` module:
+
+    >>> add_integer = __import__('0-add_integer').add_integer
+
+
+Check for function docstring:
+
+    >>> fun = __import__("0-add_integer").add_integer.__doc__
+    >>> len(fun) > 1
+    True
+         
+Check for module docstring:
+
+    >>> modu = __import__("0-add_integer").__doc__
+    >>> len(modu) > 1 
+    True
+    
+Test one argument:
+
+    >>> add_integer(2)
+    100
+
+Test baisc use:
+
+    >>> add_integer(1)
+    99
+
+Check adding positive with negative:
+
+    >>> add_integer(2, -5)
+    -3
+
+Check adding negative with positive:
+
+    >>> add_integer(-1, 8)
+    7
+
+Check Float and negative input:
+
+    >>> add_integer(100.3, -2)
+    98
+
+Float overflow:
+
+    >>> add_integer(1400.5)
+    1498
+
+Float NaN:
+
+    >>> add_integer(float('NaN'))
+    Traceback (most recent call last):
+    ...
+    ValueError: cannot convert float NaN to integer
+
+String input:
+
+    >>> add_integer(4, "School")
+    Traceback (most recent call last):
+    ...
+    TypeError: b must be an integer
+
+Check None input:
+
+    >>> add_integer(None)
+    Traceback (most recent call last):
+    ...
+    TypeError: a must be an integer
+
+Check double negative float input:
+
+    >>> add_integer(-100.5, -10.8)
+    -110
+
+Check double string input:
+
+    >>> add_integer("alx", "africa")
+    Traceback (most recent call last):
+    ...
+    TypeError: a must be an integer
