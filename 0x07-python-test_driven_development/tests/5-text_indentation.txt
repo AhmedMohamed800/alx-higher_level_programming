@@ -18,6 +18,27 @@ Test normal use:
     adipiscing elit.
     <BLANKLINE>
 
+    >>> text_indentation(".    :    ?")
+    .
+    <BLANKLINE>
+    :
+    <BLANKLINE>
+    ?
+    <BLANKLINE>
+
+    >>> text_indentation(12)
+    Traceback (most recent call last):
+    TypeError: text must be a string
+
+    >>> text_indentation("")
+
+    >>> text_indentation("Mow\n\nTM.")
+    Mow
+    <BLANKLINE>
+    TM.
+    <BLANKLINE>
+
+
     >>> text_indentation("""Lorem ipsum dolor sit amet, consectetur adipiscing elit. \
     ... Quonam modo? Utrum igitur tibi litteram videor an totas paginas commovere? \
     ... Non autem hoc: igitur ne illud quidem. Fortasse id optimum, sed ubi illud: \
