@@ -4,13 +4,9 @@
 
 def add_integer(a, b=98):
     """give the sum of a + b
-
     Arguments:
         a: first integer
         b: second integer
-
-    Raises:
-        TypeError if a or b isn't int or float
     Returns :the sum of a and b
     """
     if type(a) not in [int, float]:
