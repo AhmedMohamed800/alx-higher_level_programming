@@ -85,6 +85,4 @@ class Rectangle:
             raise TypeError("size must be an integer")
         elif size < 0:
             raise ValueError("size must be >= 0")
-        width = size
-        height = size
-        return cls(width, height)
+        return cls(size, size)
