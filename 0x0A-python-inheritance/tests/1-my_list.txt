@@ -100,3 +100,30 @@ Test 0 value:
    >>> my_list.append(0)
    >>> my_list.print_sorted()
    [0, 1]
+
+Test one number:
+   >>> my_list.clear()
+   >>> my_list.append(1)
+   >>> my_list.print_sorted()
+   [1]
+
+
+Test list as an argument:
+  >>> my_list.clear()
+  >>> b = [1, 2, 3]
+  >>> my_list = MyList(b)
+  >>> my_list.print_sorted()
+  [1, 2, 3]
+
+Test undefined:
+  >>> my_listf.print_sorted()
+  Traceback (most recent call last):
+  NameError: name 'my_listf' is not defined
+
+Test parent object:
+  >>> my_list = [1, 2, 3]
+  >>> my_list.print_sorted()
+  Traceback (most recent call last):
+  AttributeError: 'list' object has no attribute 'print_sorted'
+
+
