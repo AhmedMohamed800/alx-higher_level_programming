@@ -50,3 +50,31 @@ Test empty list:
    >>> my_list.clear()
    >>> my_list.print_sorted()
    []
+
+Test same numbeR:
+   >>> my_list.clear()
+   >>> my_list.append(3)
+   >>> my_list.append(3)
+   >>> my_list.append(3)
+   >>> my_list.append(3)
+   >>> my_list.print_sorted()
+   [3, 3, 3, 3]
+
+Test same numbeR with other numers:
+   >>> my_list.append(2)
+   >>> my_list.append(-1)
+   >>> my_list.print_sorted()
+   [-1, 2, 3, 3, 3, 3]
+
+
+Test infinite:
+   >>> my_list.append(int('inf'))
+   Traceback (most recent call last):
+   ValueError: invalid literal for int() with base 10: 'inf'
+
+Test maximun num:
+   >>> my_list.clear()
+   >>> my_list.append(10000000000000000000000000000000000000000000)
+   >>> my_list.append(1)
+   >>> my_list.print_sorted()
+   [1, 10000000000000000000000000000000000000000000]
