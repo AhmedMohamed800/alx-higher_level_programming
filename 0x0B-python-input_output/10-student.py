@@ -14,6 +14,6 @@ class Student:
             return self.__dict__
         dicty = {}
         for ele in attr:
-            if self.__dict__.has_key(ele):
+            if ele in self.__dict__.keys():
                 dicty[ele] = self.__dict__[ele]
         return dicty
