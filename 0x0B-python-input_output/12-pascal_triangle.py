@@ -27,6 +27,3 @@ def pascal_triangle(n):
         x.append(new_list)
         new_list = []
     return x
-
-
-print(pascal_triangle(20))
