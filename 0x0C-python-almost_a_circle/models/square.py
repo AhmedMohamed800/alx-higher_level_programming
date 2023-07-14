@@ -27,8 +27,12 @@ class Square(Rectangle):
 
     def __str__(self):
         """print object as string"""
-        return f"[Square] ({self.id} {self.x}/{self.y} - {self.size})"
-    
+        return f"[Square] ({self.id}) {self.x}/{self.y} - {self.size}"
+
+    def to_dictionary(self):
+        """return a dictionary"""
+        return {'id': self.id, 'x': self.x, 'size': self.size, 'y': self.y}
+
     def update(self, *args, **kwargs):
         if args:
             self.id = args[0] if len(args) > 0 else self.id
