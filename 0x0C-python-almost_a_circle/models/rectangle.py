@@ -97,10 +97,20 @@ class Rectangle(Base):
             print("#" * self.__width)
 
     def __str__(self):
+        """print class as value"""
         return f"[Rectangle] ({self.id}) {self.__x}/{self.__y}\
  - {self.__width}/{self.__height}"
 
+    def to_dictionary(self):
+        """Return a dictionary"""
+        return {'x': self.__x,
+                'y': self.__y,
+                'id': self.id,
+                'height': self.__height,
+                'width': self.__width}
+
     def update(self, *args, **kwargs):
+        """Update rect"""
         if args:
             self.id = args[0] if len(args) > 0 else self.id
             if len(args) > 1:
