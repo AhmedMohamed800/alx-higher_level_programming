@@ -64,6 +64,7 @@ class Rectangle(Base):
 
     @x.setter
     def x(self, value):
+        """change x's value"""
         if type(value) is not int:
             raise TypeError("x must be an integer")
         elif value < 0:
@@ -77,6 +78,7 @@ class Rectangle(Base):
 
     @y.setter
     def y(self, value):
+        """set y's value"""
         if type(value) is not int:
             raise TypeError("y must be an integer")
         elif value < 0:
@@ -88,6 +90,7 @@ class Rectangle(Base):
         return self.__width * self.__height
 
     def display(self):
+        """Display rectangle"""
         print("\n" * self.__y, end="")
         for x in range(self.__height):
             print(" " * self.__x, end="")
@@ -96,3 +99,57 @@ class Rectangle(Base):
     def __str__(self):
         return f"[Rectangle] ({self.id}) {self.__x}/{self.__y}\
  - {self.__width}/{self.__height}"
+
+    def update(self, *args, **kwargs):
+        if args:
+            self.id = args[0] if len(args) > 0 else self.id
+            if len(args) > 1:
+                if type(args[1]) is not int:
+                    raise TypeError("width must be an integer")
+                elif args[1] <= 0:
+                    raise ValueError("width must be > 0")
+            self.__width = args[1] if len(args) > 1 else self.__width
+            if len(args) > 2:
+                if type(args[2]) is not int:
+                    raise TypeError("height must be an integer")
+                elif args[2] <= 0:
+                    raise ValueError("height must be > 0")
+            self.__height = args[2] if len(args) > 2 else self.__height
+            if len(args) > 3:
+                if type(args[3]) is not int:
+                    raise TypeError("x must be an integer")
+                elif args[3] < 0:
+                    raise ValueError("x must be >= 0")
+            self.__x = args[3] if len(args) > 3 else self.__x
+            if len(args) > 4:
+                if type(args[4]) is not int:
+                    raise TypeError("y must be an integer")
+                elif args[4] < 0:
+                    raise ValueError("y must be >= 0")
+            self.__y = args[4] if len(args) > 4 else self.__y
+        elif kwargs:
+            self.id = kwargs["id"] if "id" in kwargs else self.id
+            if "width" in kwargs:
+                if type(kwargs["width"]) is not int:
+                    raise TypeError("width must be an integer")
+                elif kwargs["width"] <= 0:
+                    raise ValueError("width must be > 0")
+                self.__width = kwargs["width"]
+            if "height" in kwargs:
+                if type(kwargs["height"]) is not int:
+                    raise TypeError("height must be an integer")
+                elif kwargs["height"] <= 0:
+                    raise ValueError("height must be > 0")
+                self.__height = kwargs["height"]
+            if "x" in kwargs:
+                if type(kwargs["x"]) is not int:
+                    raise TypeError("x must be an integer")
+                elif kwargs["x"] < 0:
+                    raise ValueError("x must be >= 0")
+                self.__x = kwargs["x"]
+            if "y" in kwargs:
+                if type(kwargs["x"]) is not int:
+                    raise TypeError("y must be an integer")
+                elif kwargs["y"] < 0:
+                    raise ValueError("y must be >= 0")
+                self.__y = kwargs["y"]
