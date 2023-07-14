@@ -2,11 +2,13 @@
 """Test rectangle"""
 import unittest
 from models.rectangle import Rectangle
+from models.base import Base
 
 
 class test_rectangle(unittest.TestCase):
     """Test for Rectangle class"""
     def test_baisc_use(self):
+        self.assertIsInstance(Rectangle(10, 2), Base)
         """Test id, width, heigth, x and y"""
         r1 = Rectangle(10, 2)
         r2 = Rectangle(2, 10)
@@ -21,11 +23,18 @@ class test_rectangle(unittest.TestCase):
 
     def test_width_height(self):
         """test all cases of width_height"""
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
+            Rectangle()
+        with self.assertRaises(TypeError):
+            Rectangle(1)
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            r = Rectangle(10, 2)
+            r.width = -10
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
             Rectangle(-10, 2)
-        with self.assertRaises(ValueError):
+        with self.assertRaisesRegex(ValueError, "height must be > 0"):
             Rectangle(10, -2)
-        with self.assertRaises(ValueError):
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
             Rectangle(0, -2)
         with self.assertRaises(ValueError):
             Rectangle(10, 0)
@@ -48,6 +57,9 @@ class test_rectangle(unittest.TestCase):
 
     def test_x_y(self):
         """test all cases of x_y"""
+        with self.assertRaises(TypeError):
+            r = Rectangle(10, 2)
+            r.x = {}
         r1 = Rectangle(10, 23, 1)
         r2 = Rectangle(10, 23, 1, 2)
         self.assertEqual(r1.x, 1)
@@ -62,3 +74,23 @@ class test_rectangle(unittest.TestCase):
         self.assertEqual(rl2.y, 0)
         with self.assertRaises(TypeError):
             Rectangle(10)
+
+    def test_more_than_five_argumnes(self):
+        with self.assertRaises(TypeError):
+            Rectangle(10, 23, 1, 1, 50, 60)
+
+    def test_width_private(self):
+        with self.assertRaises(AttributeError):
+            print(Rectangle(10, 23, 1, 1, 1).__width)
+
+    def test_height_private(self):
+        with self.assertRaises(AttributeError):
+            print(Rectangle(10, 23, 1, 1, 1).__height)
+
+    def test_x_private(self):
+        with self.assertRaises(AttributeError):
+            print(Rectangle(10, 23, 1, 1, 1).__x)
+
+    def test_y_private(self):
+        with self.assertRaises(AttributeError):
+            print(Rectangle(10, 23, 1, 1, 1).__y)
