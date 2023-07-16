@@ -3,6 +3,8 @@
 import unittest
 from models.rectangle import Rectangle
 from models.base import Base
+import io
+import sys
 
 
 class test_rectangle(unittest.TestCase):
@@ -141,4 +143,58 @@ class test_rectangle(unittest.TestCase):
 
 class Test_area_rect(unittest.TestCase):
     """test_area"""
-    def test_getters_setters
+    def test_area(self):
+        r = Rectangle(10, 2)
+        self.assertEqual(r.area(), 20)
+        r = Rectangle(10, 20)
+        self.assertEqual(r.area(), 200)
+
+
+class Test_display_rect(unittest.TestCase):
+    """test_display and __str__"""
+
+    @staticmethod
+    def what_printed(rectangle, method):
+        """function to test __str__ and display"""
+        capturedOutput = io.StringIO()
+        sys.stdout = capturedOutput
+        if method == "print":
+            print(rectangle)
+        else:
+            rectangle.display()
+        sys.stdout = sys.__stdout__
+        return capturedOutput
+
+    def test_str(self):
+        """test __str__"""
+        r1 = Rectangle(4, 6)
+        capturedOutput = Test_display_rect.what_printed(r1, "print")
+        correct = f"[Rectangle] ({r1.id}) 0/0 - 4/6\n"
+        self.assertEqual(correct, capturedOutput.getvalue())
+        r1 = Rectangle(4, 6, 1, 2)
+        capturedOutput = Test_display_rect.what_printed(r1, "print")
+        correct = f"[Rectangle] ({r1.id}) 1/2 - 4/6\n"
+        self.assertEqual(correct, capturedOutput.getvalue())
+        r1 = Rectangle(4, 6, 1)
+        capturedOutput = Test_display_rect.what_printed(r1, "print")
+        correct = f"[Rectangle] ({r1.id}) 1/0 - 4/6\n"
+        self.assertEqual(correct, capturedOutput.getvalue())
+        r1 = Rectangle(4, 6, 0, 1)
+        capturedOutput = Test_display_rect.what_printed(r1, "print")
+        correct = f"[Rectangle] ({r1.id}) 0/1 - 4/6\n"
+        self.assertEqual(correct, capturedOutput.getvalue())
+
+    def test_display(self):
+        """test display fun"""
+        r1 = Rectangle(3, 2)
+        capturedOutput = Test_display_rect.what_printed(r1, "Nprint")
+        correct = "###\n###\n"
+        self.assertEqual(correct, capturedOutput.getvalue())
+        r1 = Rectangle(3, 2, 2)
+        capturedOutput = Test_display_rect.what_printed(r1, "Nprint")
+        correct = "  ###\n  ###\n"
+        self.assertEqual(correct, capturedOutput.getvalue())
+        r1 = Rectangle(3, 2, 2, 2)
+        capturedOutput = Test_display_rect.what_printed(r1, "Nprint")
+        correct = "\n\n  ###\n  ###\n"
+        self.assertEqual(correct, capturedOutput.getvalue())
