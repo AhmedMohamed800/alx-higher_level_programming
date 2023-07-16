@@ -60,6 +60,32 @@ class test_rectangle(unittest.TestCase):
         with self.assertRaises(TypeError):
             r = Rectangle(10, 2)
             r.x = {}
+        with self.assertRaises(TypeError):
+            r = Rectangle(10, 2, "hello", 1)
+        with self.assertRaises(TypeError):
+            r = Rectangle(10, 2, True, 1)
+        with self.assertRaises(TypeError):
+            r = Rectangle(10, 2, {"hello": "meow"}, 1)
+        with self.assertRaises(TypeError):
+            r = Rectangle(10, 2, 1, "hello")
+        with self.assertRaises(TypeError):
+            r = Rectangle(10, 2, [1], 2)
+        with self.assertRaises(TypeError):
+            r = Rectangle(10, 2, {1, 2}, 2)
+        with self.assertRaises(TypeError):
+            r = Rectangle(10, 2, 1, [2])
+        with self.assertRaises(TypeError):
+            r = Rectangle(10, 2, 1, {"hello": "meow"})
+        with self.assertRaises(TypeError):
+            r = Rectangle(10, 2, 2, None)
+        with self.assertRaises(TypeError):
+            r = Rectangle(10, 2, 1, True)
+        with self.assertRaises(TypeError):
+            r = Rectangle(10, 2, None, 1)
+        with self.assertRaises(TypeError):
+            r = Rectangle(10, 2, 2.3, 1)
+        with self.assertRaises(TypeError):
+            r = Rectangle(10, 2, 3, 1.2)
         r1 = Rectangle(10, 23, 1)
         r2 = Rectangle(10, 23, 1, 2)
         self.assertEqual(r1.x, 1)
@@ -76,21 +102,43 @@ class test_rectangle(unittest.TestCase):
             Rectangle(10)
 
     def test_more_than_five_argumnes(self):
+        """test using more than 5 arguments"""
         with self.assertRaises(TypeError):
             Rectangle(10, 23, 1, 1, 50, 60)
 
     def test_width_private(self):
+        """test if width is private"""
         with self.assertRaises(AttributeError):
             print(Rectangle(10, 23, 1, 1, 1).__width)
 
     def test_height_private(self):
+        """test if height is privte"""
         with self.assertRaises(AttributeError):
             print(Rectangle(10, 23, 1, 1, 1).__height)
 
     def test_x_private(self):
+        """test if x is private"""
         with self.assertRaises(AttributeError):
             print(Rectangle(10, 23, 1, 1, 1).__x)
 
     def test_y_private(self):
+        """test if y is private"""
         with self.assertRaises(AttributeError):
             print(Rectangle(10, 23, 1, 1, 1).__y)
+
+    def test_getters_setters(self):
+        """test getters and setters"""
+        with self.assertRaises(ValueError):
+            r = Rectangle(10, 2)
+            r.width = -10
+        with self.assertRaises(ValueError):
+            r = Rectangle(10, 2)
+            r.height = -10
+        with self.assertRaises(ValueError):
+            r = Rectangle(10, 2)
+            r.y = -10
+
+
+class Test_area_rect(unittest.TestCase):
+    """test_area"""
+    def test_getters_setters
