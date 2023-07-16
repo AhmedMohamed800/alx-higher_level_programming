@@ -58,3 +58,17 @@ class Test_ID(unittest.TestCase):
             Base(None, 3)
         with self.assertRaises(TypeError):
             Base(1, None)
+
+    def test_to_json_string_base(self):
+        """test_to_json_string"""
+        json_string = Base.to_json_string(None)
+        self.assertEqual(json_string, "[]")
+
+        json_string = Base.to_json_string([])
+        self.assertEqual(json_string, "[]")
+
+        with self.assertRaises(TypeError):
+            json_string = Base.to_json_string([], "hello")
+
+        with self.assertRaises(TypeError):
+            json_string = Base.to_json_string()
