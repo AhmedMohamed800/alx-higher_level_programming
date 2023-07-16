@@ -198,3 +198,91 @@ class Test_display_rect(unittest.TestCase):
         capturedOutput = Test_display_rect.what_printed(r1, "Nprint")
         correct = "\n\n  ###\n  ###\n"
         self.assertEqual(correct, capturedOutput.getvalue())
+
+
+class Test_to_dict(unittest.TestCase):
+    """Test to dictionary"""
+    def test_dict(self):
+        r1 = Rectangle(3, 2, 0, 0, 1)
+        r1_dictionary = r1.to_dictionary()
+        test_case = {'x': 0, 'y': 0, 'id': 1, 'height': 2, 'width': 3}
+        self.assertEqual(test_case, r1_dictionary)
+        r2 = Rectangle(5, 4)
+        r1 = Rectangle(5, 4)
+        r1_dictionary = r1.to_dictionary()
+        r1_id = r2.id + 1
+        test_case = {'x': 0, 'y': 0, 'id': r1_id, 'height': 4, 'width': 5}
+        self.assertEqual(test_case, r1_dictionary)
+        r2 = Rectangle(5, 4)
+        r1 = Rectangle(5, 4, 0)
+        r1_dictionary = r1.to_dictionary()
+        r1_id = r2.id + 1
+        test_case = {'x': 0, 'y': 0, 'id': r1_id, 'height': 4, 'width': 5}
+        self.assertEqual(test_case, r1_dictionary)
+        r2 = Rectangle(5, 4)
+        r1 = Rectangle(5, 4, 1, 2)
+        r1_dictionary = r1.to_dictionary()
+        r1_id = r2.id + 1
+        test_case = {'x': 1, 'y': 2, 'id': r1_id, 'height': 4, 'width': 5}
+        self.assertEqual(test_case, r1_dictionary)
+
+
+class TestUpdate(unittest.TestCase):
+    """Test Update"""
+    def test_normal_use(self):
+        """normal_use"""
+        r = Rectangle(5, 5, 5, 5, 5)
+        r.update()
+        self.assertEqual('[Rectangle] (5) 5/5 - 5/5', str(r))
+        r = Rectangle(5, 5, 5, 5, 5)
+        r.update(10)
+        self.assertEqual('[Rectangle] (10) 5/5 - 5/5', str(r))
+        r = Rectangle(5, 5, 5, 5, 5)
+        r.update(10, 1, 2)
+        self.assertEqual('[Rectangle] (10) 5/5 - 1/2', str(r))
+        r = Rectangle(5, 5, 5, 5, 5)
+        r.update(10, 1, 2, 3)
+        self.assertEqual('[Rectangle] (10) 3/5 - 1/2', str(r))
+        r = Rectangle(5, 5, 5, 5, 5)
+        r.update(10, 1, 2, 3, 4)
+        self.assertEqual('[Rectangle] (10) 3/4 - 1/2', str(r))
+        r = Rectangle(5, 5, 5, 5, 5)
+        r.update(None)
+        self.assertEqual('[Rectangle] (None) 5/5 - 5/5', str(r))
+        r = Rectangle(5, 5, 5, 5, 5)
+        r.update(None, 1, 2)
+        self.assertEqual('[Rectangle] (None) 5/5 - 1/2', str(r))
+        r = Rectangle(5, 5, 5, 5, 5)
+        r.update(10)
+        r.update(12)
+        self.assertEqual('[Rectangle] (12) 5/5 - 5/5', str(r))
+        r = Rectangle(5, 5, 5, 5, 5)
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            r.update(10, "hello")
+        r = Rectangle(5, 5, 5, 5, 5)
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            r.update(10, None)
+        r = Rectangle(5, 5, 5, 5, 5)
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            r.update(10, True)
+        r = Rectangle(5, 5, 5, 5, 5)
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            r.update(10, 2.3)
+        r = Rectangle(5, 5, 5, 5, 5)
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            r.update(10, -1)
+        r = Rectangle(5, 5, 5, 5, 5)
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            r.update(10, 2, "height")
+        r = Rectangle(5, 5, 5, 5, 5)
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            r.update(10, 1, None)
+        r = Rectangle(5, 5, 5, 5, 5)
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            r.update(10, 1, 2.3)
+        r = Rectangle(5, 5, 5, 5, 5)
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            r.update(10, 1, [2, 1])
+        r = Rectangle(5, 5, 5, 5, 5)
+        with self.assertRaisesRegex(ValueError, "height must be > 0"):
+            r.update(10, 1, -2)
