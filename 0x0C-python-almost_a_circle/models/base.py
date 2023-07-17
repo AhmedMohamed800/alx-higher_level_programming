@@ -1,8 +1,5 @@
-"""
-==============
-Module of base
-==============
-"""
+#!/usr/bin/python3
+"""Define a Base"""
 import json
 
 
