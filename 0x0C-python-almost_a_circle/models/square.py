@@ -1,9 +1,5 @@
 #!/usr/bin/python3
-"""
-================
-Module of Square
-================
-"""
+"""Define a Square"""
 from models.rectangle import Rectangle
 
 
