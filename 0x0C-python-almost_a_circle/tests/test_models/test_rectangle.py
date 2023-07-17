@@ -3,6 +3,7 @@
 import unittest
 from models.rectangle import Rectangle
 from models.base import Base
+import os
 import io
 import sys
 
@@ -286,3 +287,83 @@ class TestUpdate(unittest.TestCase):
         r = Rectangle(5, 5, 5, 5, 5)
         with self.assertRaisesRegex(ValueError, "height must be > 0"):
             r.update(10, 1, -2)
+
+
+class Test_To_Json_String(unittest.TestCase):
+    """Test to_json_string"""
+    def test_differnt_usages(self):
+        """Test"""
+        r1 = Rectangle(10, 8, 4, 6, 1)
+        dictionary = r1.to_dictionary()
+        json_dictionary = Base.to_json_string([dictionary])
+        self.assertEqual(str, type(json_dictionary))
+        r1 = Rectangle(10, 7, 6, 4, 1)
+        dictionary = r1.to_dictionary()
+        json_dictionary = Base.to_json_string([dictionary])
+        self.assertTrue(len(json_dictionary) == 53)
+        r1 = Rectangle(10, 7, 4, 6, 1)
+        r2 = Rectangle(7, 10, 6, 4, 1)
+        dictionaries = [r1.to_dictionary(), r2.to_dictionary()]
+        json_dictionary = Base.to_json_string(dictionaries)
+        self.assertEqual(str, type(json_dictionary))
+        r1 = Rectangle(10, 7, 4, 6, 1)
+        r2 = Rectangle(7, 10, 6, 4, 1)
+        dictionaries = [r1.to_dictionary(), r2.to_dictionary()]
+        json_dictionary = Base.to_json_string(dictionaries)
+        self.assertTrue(len(json_dictionary) == 106)
+
+
+class Test_save_to_file(unittest.TestCase):
+    """Unittests for testing save_to_file"""
+    def test_difference(self):
+        """test various block of codes"""
+        rect = Rectangle(10, 7, 2, 8, 5)
+        Rectangle.save_to_file([rect])
+        with open("Rectangle.json", "r") as file:
+            self.assertTrue(len(file.read()) == 53)
+        rect1 = Rectangle(10, 7, 2, 8, 5)
+        rect2 = Rectangle(2, 4, 1, 2, 3)
+        Rectangle.save_to_file([rect1, rect2])
+        with open("Rectangle.json", "r") as file:
+            self.assertTrue(len(file.read()) == 105)
+
+
+class Test_create_in_rect(unittest.TestCase):
+    """test create with rectangle"""
+    def test_rect_create(self):
+        """test create with rectangle"""
+        r1 = Rectangle(3, 5, 1)
+        r1_dictionary = r1.to_dictionary()
+        r2 = Rectangle.create(**r1_dictionary)
+        self.assertEqual(str(r1), str(r2))
+        self.assertIsNot(r1, r2)
+        self.assertNotEqual(r1, r2)
+
+
+class Test_load_From_file(unittest.TestCase):
+    """test load from file"""
+    def test_differnet(self):
+        if (os.path.exists("Rectangle.json") is True):
+            os.remove("Rectangle.json")
+        if (os.path.exists("Square.json") is True):
+            os.remove("Square.json")
+        if (os.path.exists("Base.json") is True):
+            os.remove("Base.json")
+        lst = Rectangle.load_from_file()
+        self.assertEqual(lst, [])
+        os.mknod("Rectangle.json")
+        lst = Rectangle.load_from_file()
+        self.assertEqual(lst, [])
+        rect_a = Rectangle(2, 4)
+        rect_b = Rectangle(1, 1)
+        rect_c = Rectangle(6, 6)
+        my_list = [rect_a, rect_b, rect_c]
+        Rectangle.save_to_file([rect_a, rect_b, rect_c])
+        my_list_loaded = Rectangle.load_from_file()
+        self.assertEqual(type(my_list), type(my_list_loaded))
+        self.assertEqual(len(my_list), len(my_list_loaded))
+        for i in range(len(my_list)):
+            self.assertEqual(type(my_list_loaded[i]), type(my_list[i]))
+            self.assertEqual(my_list[i].to_dictionary(),
+                             my_list_loaded[i].to_dictionary())
+        os.remove("Rectangle.json")
