@@ -1,13 +1,16 @@
 #!/usr/bin/node
 
-const factorial = (num) => {
-  let result = 1;
-  for (let i = 1; i < num + 1; i++) {
-    result *= i;
+function factorial (num) {
+  if (num === 0 || num === 1) {
+    return 1;
+  } else {
+    return num * factorial(num - 1);
   }
-  return result;
-};
+}
 
 const firstArg = parseInt(process.argv[2]);
-
-console.log(factorial(firstArg));
+if (firstArg) {
+  console.log(factorial(firstArg));
+} else {
+  console.log(1);
+}
