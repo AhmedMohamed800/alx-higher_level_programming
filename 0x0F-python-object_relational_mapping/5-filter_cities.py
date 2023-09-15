@@ -17,6 +17,8 @@ if "__main__" == __name__:
             ORDER BY cities.id"""
     cursor.execute(query, (state_input,))
     states = cursor.fetchall()
+    if len(states) == 0:
+        print("")
     for state in states:
         print(f"{state[0]}", end="\n" if states[-1][0] == state[0] else ", ")
     db_connection.close()
