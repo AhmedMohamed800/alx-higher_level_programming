@@ -1,5 +1,3 @@
 #!/bin/bash
 # takes in a URL, sends a request to that UR
-url=$1
-result=$(curl -Is "$url" | grep -i Content-Length | awk '{print $2}')
-echo "$result"
+curl -Is "$1" | grep -i Content-Length | awk '{print $2}'
