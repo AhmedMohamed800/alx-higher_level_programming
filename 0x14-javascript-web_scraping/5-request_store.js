@@ -1,21 +1,17 @@
 #!/usr/bin/node
 
 const request = require('request');
+const fs = require('fs');
 const URL = process.argv[2];
+const FILENAME = process.argv[3];
 
 request(URL, (error, response, body) => {
   if (error) {
     console.error(error);
   } else {
-    const TODOS = {};
-    const RESULTS = JSON.parse(body);
-    RESULTS.map((task) => {
-      if (!Object.prototype.hasOwnProperty.call(TODOS, '' + task.userId)) {
-        TODOS['' + task.userId] = 0;
-      }
-      if (task.completed) TODOS['' + task.userId] += 1;
-      return task;
-    });
-    console.log(TODOS);
+    const RESULT = body;
+    fs.writeFile(FILENAME, body, 'utf8', (err) => {
+	    if (err) console.error(err);
+    })
   }
 });
