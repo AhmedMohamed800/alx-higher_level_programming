@@ -11,7 +11,7 @@ request(URL, (error, response, body) => {
     const RESULTS = JSON.parse(body);
     RESULTS.map((task) => {
       if (!Object.prototype.hasOwnProperty.call(TODOS, '' + task.userId)) {
-        TODOS['' + task.userId] = 0;
+        if (task.completed) TODOS['' + task.userId] = 0;
       }
       if (task.completed) TODOS['' + task.userId] += 1;
       return task;
